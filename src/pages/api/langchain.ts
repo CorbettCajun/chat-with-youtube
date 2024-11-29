@@ -1,56 +1,151 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { PineconeClient } from "@pinecone-database/pinecone";
-import { OpenAI } from "langchain";
-import { OpenAIEmbeddings } from "langchain/embeddings/openai";
-import { PineconeStore } from "langchain/vectorstores/pinecone";
+import { Pinecone } from "@pinecone-database/pinecone";
+import { ChatOpenAI } from "@langchain/openai";
+import { OpenAIEmbeddings } from "@langchain/openai";
+import { PineconeStore } from "@langchain/pinecone";
 import { ConversationalRetrievalQAChain } from "langchain/chains";
 import { type NextApiRequest, type NextApiResponse } from "next";
+import type { Index } from "@pinecone-database/pinecone";
+import { env } from "~/env.mjs";
+import { BaseCallbackConfig, Callbacks } from "@langchain/core/callbacks/manager";
+import { VectorStore } from "@langchain/core/vectorstores";
+import { Document } from "@langchain/core/documents";
 
+// Enhanced type definitions
 interface LangChainRequestBody {
   question: string;
-  chat_history?: string[];
+  chat_history?: [string, string][]; // [human, ai] pairs
+}
+
+interface ErrorResponse {
+  message: string;
+  details?: string;
+}
+
+interface SuccessResponse {
+  answer: string;
+  sources?: string[];
+}
+
+interface DocumentMetadata {
+  source: string;
 }
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse<SuccessResponse | ErrorResponse>
 ) {
-  try {
-    // Extract the question from the request body
-    const { question, chat_history = [] } = req.body as LangChainRequestBody;
+  // Only allow POST requests
+  if (req.method !== 'POST') {
+    return res.status(405).json({ 
+      message: 'Method not allowed',
+      details: 'Only POST requests are accepted'
+    });
+  }
 
-    if (!question) {
-      return res
-        .status(400)
-        .json({ message: "Invalid request. No question found" });
+  try {
+    // Validate environment variables
+    if (!env.OPENAI_API_KEY || !env.PINECONE_API_KEY || !env.PINECONE_INDEX) {
+      throw new Error('Missing required environment variables');
     }
 
-    const client = new PineconeClient();
-    await client.init({
-      apiKey: process.env.PINECONE_API_KEY || "",
-      environment: process.env.PINECONE_ENVIRONMENT || "",
-    });
-    const pineconeIndex = client.Index(process.env.PINECONE_INDEX || "");
+    const { question, chat_history = [] } = req.body as LangChainRequestBody;
 
+    if (!question?.trim()) {
+      return res.status(400).json({ 
+        message: "Invalid request",
+        details: "Question cannot be empty" 
+      });
+    }
+
+    // Initialize services with configuration
+    const client = new Pinecone({
+      apiKey: env.PINECONE_API_KEY,
+    });
+    
+    const pineconeIndex: Index = client.Index(env.PINECONE_INDEX);
+
+    // Configure embeddings with retry logic
+    const embeddings = new OpenAIEmbeddings({
+      openAIApiKey: env.OPENAI_API_KEY,
+      modelName: "text-embedding-ada-002",
+      maxRetries: 3,
+      timeout: 30000 // 30 seconds
+    });
+
+    // Initialize vector store with error handling
     const vectorStore = await PineconeStore.fromExistingIndex(
-      new OpenAIEmbeddings({
-        openAIApiKey: process.env.OPENAI_API_KEY,
-      }),
-      { pineconeIndex }
+      embeddings,
+      {
+        pineconeIndex: pineconeIndex as any,
+        ...(env.PINECONE_NAMESPACE ? { namespace: env.PINECONE_NAMESPACE } : {}),
+      }
     );
 
-    /* Use as part of a chain (currently no metadata filters) */
-    const model = new OpenAI();
+    // Configure chat model with safety parameters
+    const model = new ChatOpenAI({
+      modelName: "gpt-3.5-turbo",
+      openAIApiKey: env.OPENAI_API_KEY,
+      temperature: 0.7,
+      maxTokens: 500,
+      timeout: 60000, // 60 seconds
+    });
+    
+    // Create retriever from vector store
+    const retriever = vectorStore.asRetriever({
+      searchKwargs: {
+        k: 5,
+        includeValues: true,
+        includeMetadata: true,
+      } as any,
+    });
+
+    // Create chain with enhanced configuration
     const chain = ConversationalRetrievalQAChain.fromLLM(
       model,
-      vectorStore.asRetriever()
+      retriever as any,
+      {
+        verbose: env.NODE_ENV === 'development',
+        returnSourceDocuments: true,
+        questionGeneratorChainOptions: {
+          template: `Given the following conversation and a follow up question, rephrase the follow up question to be a standalone question.
+
+Chat History:
+{chat_history}
+Follow Up Input: {question}
+Standalone question:`,
+        }
+      }
     );
 
-    const query = await chain.call({ question, chat_history });
+    // Format chat history and execute query
+    const formattedHistory = chat_history
+      .map(([human, ai]: [string, string]) => `Human: ${human}\nAssistant: ${ai}`)
+      .join('\n');
 
-    return res.status(200).json({ answer: query.text });
+    const response = await chain.call({ 
+      question, 
+      chat_history: formattedHistory
+    });
+
+    return res.status(200).json({ 
+      answer: response.text,
+      sources: response.sourceDocuments?.map((doc: { metadata: DocumentMetadata }) => doc.metadata.source)
+    });
+
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: "Something went wrong" });
+    console.error('Error details:', error);
+    
+    // Enhanced error handling
+    const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
+    const statusCode = errorMessage.includes('rate limit') ? 429 
+      : errorMessage.includes('not allowed') ? 403 
+      : errorMessage.includes('invalid') ? 400 
+      : 500;
+
+    return res.status(statusCode).json({ 
+      message: 'Error processing request',
+      details: errorMessage
+    });
   }
 }

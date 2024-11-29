@@ -1,0 +1,106 @@
+{
+  "project_overview": {
+    "timestamp": "2024-02-13T12:00:00Z",
+    "name": "AI Document Processing Application",
+    "description": "Comprehensive AI-powered application for intelligent document transcription, categorization, and semantic search",
+    "architecture": {
+      "frontend": "Next.js",
+      "language": "TypeScript",
+      "deployment": "Docker containerization",
+      "style": "Microservices"
+    }
+  },
+  "key_features": {
+    "content_processing": {
+      "supported_types": [
+        "Local files (text, PDF, documents)",
+        "YouTube videos",
+        "Web pages",
+        "Direct text input"
+      ]
+    },
+    "transcription": {
+      "engine": "Whisper.cpp",
+      "features": [
+        "Multiple content sources",
+        "Advanced text cleaning",
+        "Timestamp handling",
+        "Speaker label processing"
+      ]
+    },
+    "vector_storage": {
+      "database": "Pinecone",
+      "features": [
+        "Content categorization",
+        "Advanced filtering",
+        "Multi-level metadata",
+        "Semantic search"
+      ]
+    },
+    "text_correction": {
+      "approach": "Multi-layered",
+      "components": [
+        "Domain dictionaries",
+        "Contextual AI",
+        "Platform awareness"
+      ]
+    }
+  },
+  "infrastructure": {
+    "monitoring": {
+      "components": [
+        "Loki",
+        "Grafana",
+        "Prometheus"
+      ]
+    },
+    "optimization": {
+      "features": [
+        "Batch processing",
+        "Caching system",
+        "Worker thread pool",
+        "Performance metrics"
+      ]
+    }
+  },
+  "environment": {
+    "required_keys": [
+      "OPENAI_API_KEY",
+      "PINECONE_API_KEY",
+      "PINECONE_INDEX",
+      "PINECONE_ENVIRONMENT"
+    ],
+    "optional_keys": [
+      "YOUTUBE_API_KEY"
+    ]
+  },
+  "dependencies": {
+    "core": [
+      "OpenAI API",
+      "Pinecone Vector Database",
+      "LangChain",
+      "Whisper.cpp"
+    ],
+    "processing": [
+      "Puppeteer",
+      "ytdl-core"
+    ],
+    "monitoring": [
+      "Prometheus",
+      "Grafana",
+      "Loki"
+    ]
+  },
+  "next_steps": [
+    "Implement multi-language support",
+    "Enhance content recommendations",
+    "Add advanced analytics",
+    "Improve UI/UX"
+  ],
+  "challenges": [
+    "API rate limits",
+    "Large document processing",
+    "Cross-platform compatibility",
+    "Vector storage scaling"
+  ]
+}

@@ -19,7 +19,13 @@
     "baseUrl": ".",
     "paths": {
       "~/*": ["./src/*"]
-    }
+    },
+    "types": [
+      "node",
+      "json-schema",
+      "json5",
+      "prettier"
+    ]
   },
   "include": [
     ".eslintrc.cjs",

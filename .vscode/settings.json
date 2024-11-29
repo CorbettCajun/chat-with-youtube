@@ -1,0 +1,5 @@
+{
+    "git.autofetch": "all",
+    "editor.accessibilityPageSize": 500,
+    "editor.wordWrap": "bounded"
+}

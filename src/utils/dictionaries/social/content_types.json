@@ -1,0 +1,122 @@
+{
+  "tutorial": {
+    "howto": "how-to",
+    "tutorial": "tutorial",
+    "guide": "guide",
+    "walkthrough": "walkthrough",
+    "stepbystep": "step-by-step",
+    "lesson": "lesson",
+    "instruction": "instruction",
+    "demonstration": "demonstration",
+    "example": "example",
+    "showcase": "showcase"
+  },
+  "educational": {
+    "lecture": "lecture",
+    "course": "course",
+    "lesson": "lesson",
+    "curriculum": "curriculum",
+    "assignment": "assignment",
+    "homework": "homework",
+    "quiz": "quiz",
+    "test": "test",
+    "exam": "exam",
+    "study": "study"
+  },
+  "entertainment": {
+    "vlog": "vlog",
+    "gameplay": "gameplay",
+    "reaction": "reaction",
+    "review": "review",
+    "unboxing": "unboxing",
+    "challenge": "challenge",
+    "prank": "prank",
+    "skit": "skit",
+    "comedy": "comedy",
+    "parody": "parody"
+  },
+  "news_commentary": {
+    "news": "news",
+    "update": "update",
+    "report": "report",
+    "coverage": "coverage",
+    "analysis": "analysis",
+    "breakdown": "breakdown",
+    "discussion": "discussion",
+    "debate": "debate",
+    "commentary": "commentary",
+    "opinion": "opinion"
+  },
+  "documentary": {
+    "documentary": "documentary",
+    "investigation": "investigation",
+    "research": "research",
+    "exploration": "exploration",
+    "discovery": "discovery",
+    "behindthescenes": "behind-the-scenes",
+    "makingof": "making-of",
+    "history": "history",
+    "archive": "archive",
+    "footage": "footage"
+  },
+  "podcast": {
+    "podcast": "podcast",
+    "episode": "episode",
+    "interview": "interview",
+    "conversation": "conversation",
+    "discussion": "discussion",
+    "talkshow": "talk show",
+    "qa": "Q&A",
+    "ama": "AMA",
+    "panel": "panel",
+    "debate": "debate"
+  },
+  "music": {
+    "music": "music",
+    "song": "song",
+    "album": "album",
+    "playlist": "playlist",
+    "cover": "cover",
+    "remix": "remix",
+    "mashup": "mashup",
+    "performance": "performance",
+    "concert": "concert",
+    "musicvideo": "music video"
+  },
+  "gaming": {
+    "gameplay": "gameplay",
+    "playthrough": "playthrough",
+    "walkthrough": "walkthrough",
+    "stream": "stream",
+    "speedrun": "speedrun",
+    "review": "review",
+    "letsplay": "let's play",
+    "multiplayer": "multiplayer",
+    "esports": "esports",
+    "tournament": "tournament"
+  },
+  "tech": {
+    "review": "review",
+    "unboxing": "unboxing",
+    "comparison": "comparison",
+    "benchmark": "benchmark",
+    "tutorial": "tutorial",
+    "howto": "how-to",
+    "setup": "setup",
+    "configuration": "configuration",
+    "troubleshooting": "troubleshooting",
+    "update": "update"
+  },
+  "lifestyle": {
+    "vlog": "vlog",
+    "routine": "routine",
+    "haul": "haul",
+    "review": "review",
+    "transformation": "transformation",
+    "challenge": "challenge",
+    "motivation": "motivation",
+    "inspiration": "inspiration",
+    "advice": "advice",
+    "tips": "tips"
+  }
+}

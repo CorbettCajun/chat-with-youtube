@@ -15,7 +15,7 @@
 # next.js
 /.next/
 /out/
-next-env.d.ts
+next-env.dts
 
 # production
 /build
@@ -30,13 +30,23 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# local env files
-# do not commit any .env files to git, except for the .env.example file. https://create.t3.gg/en/usage/env-variables#using-environment-variables
+# environment variables
 .env
-.env*.local
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
 # vercel
 .vercel
 
 # typescript
 *.tsbuildinfo
+
+# Add these lines if they don't exist
+.next/
+.next/trace
+
+# Project specific
+prompt and workflows.txt
+prompt and workflowstxt.txt

@@ -1,28 +1,161 @@
-# Create T3 App
+# Chat with YouTube 🎥💬
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+An AI-powered application that enables interactive conversations with YouTube video content using OpenAI's advanced language models and Pinecone vector database. Ask questions, get summaries, and engage with video content in a natural, conversational way.
 
-## What's next? How do I make an app with this?
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Docker](https://img.shields.io/badge/docker-powered-blue.svg)
+![OpenAI](https://img.shields.io/badge/OpenAI-GPT-green.svg)
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+## ✨ Features
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+- 🤖 Natural language conversations with video content
+- 🎯 Precise answers from specific video timestamps
+- 📝 Generate video summaries and key points
+- 🔍 Search across multiple videos simultaneously
+- 🔒 Secure API key management
+- 🐳 Easy deployment with Docker
+- 🚀 Simple setup wizard
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+## 🚀 Quick Start
 
-## Learn More
+### Prerequisites
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+Before you begin, ensure you have:
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+- 🐳 [Docker](https://www.docker.com/products/docker-desktop/) installed
+- 🔑 [OpenAI API key](https://platform.openai.com/account/api-keys)
+- 📊 [Pinecone account](https://app.pinecone.io/) and API key
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+### Installation
 
-## How do I deploy this?
+1. Clone the repository:
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+   ```bash
+   git clone https://github.com/CorbettCajun/chat-with-youtube.git
+   cd chat-with-youtube
+   ```
+
+2. Start the application:
+
+   ```bash
+   docker compose up -d
+   ```
+
+3. Open your browser and visit:
+
+   ```bash
+   http://localhost:3001/setup
+   ```
+
+4. Complete the setup wizard by providing:
+   - OpenAI API Key
+   - Pinecone API Key
+   - Pinecone Index Name
+
+## 🔧 Configuration
+
+### Environment Setup
+
+The application supports two configuration methods:
+
+#### 1. Setup Wizard (Recommended)
+
+- Visit `http://localhost:3001/setup`
+- Follow the guided process
+- Automatic secure storage of credentials
+
+#### 2. Manual Configuration
+
+Create a `secrets` directory and add your API keys:
+
+```bash
+mkdir -p secrets
+echo -n "your-openai-key" > secrets/openai_api_key.txt
+echo -n "your-pinecone-key" > secrets/pinecone_api_key.txt
+echo -n "your-index-name" > secrets/pinecone_index.txt
+```
+
+### API Keys Guide
+
+#### OpenAI Setup
+
+1. Visit [OpenAI API Keys](https://platform.openai.com/account/api-keys)
+2. Click "Create new secret key"
+3. Copy and save your key securely
+
+#### Pinecone Setup
+
+1. Create account at [Pinecone](https://app.pinecone.io/)
+2. Create a new project
+3. Create an index with:
+   - Dimensions: 1536
+   - Metric: Cosine
+   - Pod Type: p1.x1 (or higher)
+
+## 📝 Usage
+
+1. Start a conversation by entering a YouTube URL
+2. Ask questions about the video content
+3. Get timestamps and relevant quotes
+4. Generate summaries and key points
+
+## 🛠️ Development
+
+For local development:
+
+```bash
+# Install dependencies
+npm install
+
+# Start in development mode
+docker compose -f docker-compose.dev.yml up -d
+```
+
+## 🔍 Troubleshooting
+
+### Common Issues
+
+1. **API Connection Issues**
+   - Verify API keys are correct
+   - Check network connectivity
+   - Ensure Pinecone index exists
+
+2. **Docker Issues**
+   - Run `docker compose ps` to check container status
+   - View logs: `docker compose logs -f`
+   - Verify port 3001 is available
+
+3. **Performance Issues**
+   - Check system resources
+   - Verify Pinecone plan limits
+   - Monitor OpenAI API usage
+
+## 🔒 Security
+
+- API keys stored using Docker secrets
+- Encrypted communication
+- Setup page accessible only during initial configuration
+- Regular security updates
+
+## 📚 Documentation
+
+For detailed documentation, visit our [Wiki](https://github.com/CorbettCajun/chat-with-youtube/wiki).
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- OpenAI for their powerful language models
+- Pinecone for vector search capabilities
+- Docker for containerization
+- The open-source community

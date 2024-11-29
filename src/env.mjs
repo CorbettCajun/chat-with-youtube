@@ -1,3 +1,5 @@
+/// <reference types="@types/node" />
+/// <reference types="zod" />
 import { z } from "zod";
 
 /**
@@ -7,9 +9,11 @@ import { z } from "zod";
 const server = z.object({
   NODE_ENV: z.enum(["development", "test", "production"]),
   PINECONE_API_KEY: z.string(),
-  PINECONE_ENVIRONMENT: z.string(),
   PINECONE_INDEX: z.string(),
+  PINECONE_NAMESPACE: z.string().optional(),
+  PINECONE_ENVIRONMENT: z.string(),
   OPENAI_API_KEY: z.string(),
+  YOUTUBE_API_KEY: z.string().optional(),  // Make it optional during development
 });
 
 /**
@@ -29,9 +33,11 @@ const client = z.object(
 const processEnv = {
   NODE_ENV: process.env.NODE_ENV,
   PINECONE_API_KEY: process.env.PINECONE_API_KEY,
-  PINECONE_ENVIRONMENT: process.env.PINECONE_ENVIRONMENT,
   PINECONE_INDEX: process.env.PINECONE_INDEX,
+  PINECONE_NAMESPACE: process.env.PINECONE_NAMESPACE,
+  PINECONE_ENVIRONMENT: process.env.PINECONE_ENVIRONMENT,
   OPENAI_API_KEY: process.env.OPENAI_API_KEY,
+  YOUTUBE_API_KEY: process.env.YOUTUBE_API_KEY,
 };
 
 // Don't touch the part below

@@ -1,0 +1,86 @@
+{
+  "short_form": {
+    "shorts": "Shorts",
+    "reels": "Reels",
+    "tiktok": "TikTok",
+    "clip": "clip",
+    "snippet": "snippet",
+    "highlight": "highlight",
+    "teaser": "teaser",
+    "preview": "preview",
+    "trailer": "trailer",
+    "montage": "montage"
+  },
+  "long_form": {
+    "vlog": "vlog",
+    "podcast": "podcast",
+    "documentary": "documentary",
+    "series": "series",
+    "episode": "episode",
+    "stream": "stream",
+    "broadcast": "broadcast",
+    "premiere": "premiere",
+    "fullvideo": "full video",
+    "longform": "long-form"
+  },
+  "interactive": {
+    "live": "live",
+    "stream": "stream",
+    "qa": "Q&A",
+    "ama": "AMA",
+    "poll": "poll",
+    "quiz": "quiz",
+    "challenge": "challenge",
+    "contest": "contest",
+    "giveaway": "giveaway",
+    "collab": "collaboration"
+  },
+  "educational": {
+    "tutorial": "tutorial",
+    "howto": "how-to",
+    "guide": "guide",
+    "lesson": "lesson",
+    "course": "course",
+    "class": "class",
+    "workshop": "workshop",
+    "seminar": "seminar",
+    "lecture": "lecture",
+    "presentation": "presentation"
+  },
+  "promotional": {
+    "ad": "ad",
+    "sponsored": "sponsored",
+    "promo": "promotional",
+    "advertisement": "advertisement",
+    "commercial": "commercial",
+    "marketing": "marketing",
+    "campaign": "campaign",
+    "brandedcontent": "branded content",
+    "partnership": "partnership",
+    "sponsorship": "sponsorship"
+  },
+  "user_generated": {
+    "ugc": "UGC",
+    "fanmade": "fan-made",
+    "fancontent": "fan content",
+    "reaction": "reaction",
+    "response": "response",
+    "review": "review",
+    "commentary": "commentary",
+    "parody": "parody",
+    "remix": "remix",
+    "mashup": "mashup"
+  },
+  "behind_scenes": {
+    "bts": "behind the scenes",
+    "behindthescenes": "behind the scenes",
+    "makingof": "making of",
+    "backstage": "backstage",
+    "outtakes": "outtakes",
+    "bloopers": "bloopers",
+    "dailyvlog": "daily vlog",
+    "lifevlog": "life vlog",
+    "vlogmas": "Vlogmas",
+    "dayinthelife": "day in the life"
+  }
+}
